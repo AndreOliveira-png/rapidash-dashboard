@@ -1,0 +1,12 @@
+.header{
+    flex:1;
+    flex-direction: row;
+    background-color: #2F576D;
+    color:white;
+}.txtHeader{
+    text-align:left;
+}.txtHeader:nthchild(2){
+    text-align:right;
+}html{
+    
+}
