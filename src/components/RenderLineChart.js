@@ -1,4 +1,14 @@
 import { BarChart, AreaChart, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
+
+
+function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+}
+
+const windowSize = getWindowSize();
+
 const dataBar = [
     {
         name: 'Entregues',
@@ -65,8 +75,8 @@ const dataArea = [
 ];
 export const renderBarChart = (
     <BarChart
-        width={500}
-        height={300}
+        width={windowSize.innerWidth/2.8}
+        height={windowSize.innerHeight/2.2}
         data={dataBar}
         margin={{
             top: 5,
@@ -85,8 +95,8 @@ export const renderBarChart = (
 );
 export const renderAreaChart = (
     <AreaChart
-        width={500}
-        height={300}
+        width={windowSize.innerWidth/2.8}
+        height={windowSize.innerHeight/2.2}
         data={dataArea}
         margin={{
             top: 10,
