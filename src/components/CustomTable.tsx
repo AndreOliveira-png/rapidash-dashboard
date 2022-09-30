@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Input, Text, Flex, Box } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "./DataTable";
+import ModalCadastro from './ModalCadastro';
+
 
 type UnitConversion = {
     id: string,
     atribuida: string,
     nomeEntregador: string,
-    entregue:string,
-  };
+    entregue: string,
+};
 
-const data:UnitConversion[] = [
+const data: UnitConversion[] = [
     {
         id: '9b854140-b757-4bbc-ab53-c8be7317a4b4',
         atribuida: 'Sim',
@@ -54,6 +57,21 @@ const data:UnitConversion[] = [
     },
 ]
 
+let textoFiltrado: any = []
+export const filter = (text: string) => {
+
+    textoFiltrado = data.filter(dado => {
+        if (dado.id.includes(text)
+            || dado.atribuida.includes(text)
+            || dado.nomeEntregador.includes(text)
+            || dado.entregue.includes(text)) {
+            return dado
+        }
+    });
+
+    return textoFiltrado
+
+}
 const columnHelper = createColumnHelper<UnitConversion>();
 
 const columns = [
@@ -78,8 +96,59 @@ const columns = [
 
 
 function CustomTable() {
+
+    const [dt, setDt] = useState([]);
+    let text = ''
+    const handleChange = (event: any) => {
+        text = event.target.value;
+        let aux =  filter(text)
+        if(aux !== dt){
+            setDt(filter(text))
+        }
+       
+    };
+
+    console.log(dt)
     return (
-        <DataTable columns={columns} data={data} />
+        <Flex
+            pb='5%'
+            mt='1%'
+            direction='column'
+            bgGradient='linear(to-b,white 80%, #2F576D 20%)'>
+            <Flex direction='row'>
+                <Text ml='10%' as='b' color='black' fontSize='2xl'>Entregue </Text>
+                <Input
+                    focusBorderColor='black'
+                    borderWidth='1'
+                    borderColor='#2F576D'
+                    ml='1%'
+                    w='32%'
+                    onChange={handleChange}
+                    placeholder='Digite o ID, nome, condição da entrega ou atribuição' />
+                <ModalCadastro />
+            </Flex>
+            <Box 
+            className='boxTable'
+            minH='300px'
+             h='50%' 
+             maxH ='300px' 
+             pb='5px' 
+             borderRadius="md" 
+             borderWidth='1px' 
+             borderColor='#2F576D' 
+             mt='1%' 
+             ml='10%'
+             w='80%' 
+             bg='white'>
+                {dt.length !== 0 ?
+                    <DataTable columns={columns} data={dt} />
+                    :
+                    <DataTable columns={columns} data={data} />
+                }
+            </Box>
+        </Flex>
+
+
     )
 }
 

@@ -33,7 +33,7 @@ export function DataTable<Data extends object>({
   });
 
   return (
-    <Table  variant='striped' colorScheme='blue'>
+    <Table variant='striped' colorScheme='blue'>
       <Thead bg='#2F576D'>
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
@@ -42,7 +42,7 @@ export function DataTable<Data extends object>({
               const meta: any = header.column.columnDef.meta;
               return (
                 <Th
-                  color='white' 
+                  color='white'
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
                   isNumeric={meta?.isNumeric}
@@ -52,7 +52,7 @@ export function DataTable<Data extends object>({
                     header.getContext()
                   )}
 
-                  <chakra.span  pl="4">
+                  <chakra.span pl="4">
                     {header.column.getIsSorted() ? (
                       header.column.getIsSorted() === "desc" ? (
                         <TriangleDownIcon aria-label="sorted descending" />

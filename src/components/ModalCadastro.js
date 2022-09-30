@@ -13,11 +13,11 @@ import {
     FormControl,
     FormLabel,
 } from '@chakra-ui/react'
+import '../styles/styles.css';
 
 function ModalCadastro() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef(null)
-    const finalRef = React.useRef(null)
     return (
         <>
             <Button onClick={onOpen} ml='3%' colorScheme='facebook'>Cadastrar Entrega</Button>
