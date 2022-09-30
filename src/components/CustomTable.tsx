@@ -3,7 +3,9 @@ import { Input, Text, Flex, Box } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "./DataTable";
 import ModalCadastro from './ModalCadastro';
-import {cores} from '../styles/colors';
+import { cores } from '../styles/colors';
+import { Search2Icon } from '@chakra-ui/icons'
+import { InputLeftElement, InputGroup, InputRightElement } from '@chakra-ui/react'
 
 
 type UnitConversion = {
@@ -102,11 +104,11 @@ function CustomTable() {
     let text = ''
     const handleChange = (event: any) => {
         text = event.target.value;
-        let aux =  filter(text)
-        if(aux !== dt){
+        let aux = filter(text)
+        if (aux !== dt) {
             setDt(filter(text))
         }
-       
+
     };
 
     console.log(dt)
@@ -116,39 +118,48 @@ function CustomTable() {
             pt='1%'
             direction='column'
             bg={cores.backgroundPadrao}
-           // bgGradient='linear(to-b,white 80%, #2F576D 20%)'
-           >
+        // bgGradient='linear(to-b,white 80%, #2F576D 20%)'
+        >
             <Flex direction='row'>
                 <Text ml='10%' as='b' color='#DADADA' fontSize='2xl'>Entregue </Text>
-                <Input
-                    bg='#2F576D'
-                    color='white'
-                    focusBorderColor='#3E86B0'
-                    borderWidth='1'
-                    borderColor='#2F576D'
-                    ml='1%'
-                    w='43%'
-                    onChange={handleChange}
-                    placeholder='Digite o ID, nome, condição da entrega ou atribuição'
-                    _placeholder={{ color: 'white' }}
-                     />
+                <InputGroup w='44%'>
+
+                    <Input
+                        bg='#2F576D'
+                        color='white'
+                        focusBorderColor='#3E86B0'
+                        borderWidth='1'
+                        borderColor='#2F576D'
+                        ml='1%'
+                        w='100%'
+                        onChange={handleChange}
+                        placeholder='Digite o ID, nome, condição da entrega ou atribuição'
+                        _placeholder={{ color: 'white' }}
+                    />
+                    <InputRightElement
+                        bg={cores.backgroundSecundario}
+                        borderRadius='0px 5px 5px 0px'
+                        pointerEvents='none'
+                        children={<Search2Icon color='white' />}
+                    />
+                </InputGroup>
                 <ModalCadastro />
             </Flex>
-            <Box 
-            className='boxTable'
-            minH='300px'
-             h='50%' 
-             maxH ='300px' 
-             pb='5px' 
-             borderRadius="md" 
-             borderWidth='1px' 
-             borderColor='#2F576D' 
-             mt='1%' 
-             ml='10%'
-             w='80%' 
-             bg={cores.backgroundSecundario}
+            <Box
+                className='boxTable'
+                minH='300px'
+                h='50%'
+                maxH='300px'
+                pb='5px'
+                borderRadius="md"
+                borderWidth='1px'
+                borderColor='#2F576D'
+                mt='1%'
+                ml='10%'
+                w='80%'
+                bg={cores.backgroundSecundario}
 
-             >
+            >
                 {dt.length !== 0 ?
                     <DataTable columns={columns} data={dt} />
                     :
