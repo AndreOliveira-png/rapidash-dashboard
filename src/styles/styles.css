@@ -1,14 +1,33 @@
 .header {
     flex: 1;
     flex-direction: row;
-    background-color: #2F576D;
+    background-color: #1F333F;
     color: white;
 }
-
+html{
+    background-color: #1F333F
+}
 .txtHeader {
     text-align: left;
 }
-
+.custom-tooltip{
+    background-color: #1F333F;
+    max-width:150px;
+    color:white;
+    border-radius:10px
+}.custom-tooltip-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2F576D;
+    max-width:150px;
+    font-weight:700;
+    padding:5px;
+    padding-left:10px;
+}.custom-tooltip-body{
+    padding:5px;
+    padding-left:10px;
+}
 .txtHeader:nthchild(2) {
     text-align: right;
 }
@@ -22,7 +41,7 @@
 }
 
 .boxTable::-webkit-scrollbar-track {
-    background: white;
+    background: #2F576D;
     /* color of the tracking area */
 }
 

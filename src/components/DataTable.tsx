@@ -33,7 +33,7 @@ export function DataTable<Data extends object>({
   });
 
   return (
-    <Table variant='striped' colorScheme='blue'>
+    <Table variant='simple' colorScheme='blue'>
       <Thead bg='#2F576D'>
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
@@ -42,6 +42,7 @@ export function DataTable<Data extends object>({
               const meta: any = header.column.columnDef.meta;
               return (
                 <Th
+                borderColor='#46738B'
                   color='white'
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
@@ -69,12 +70,17 @@ export function DataTable<Data extends object>({
       </Thead>
       <Tbody>
         {table.getRowModel().rows.map((row) => (
-          <Tr key={row.id}>
+          <Tr 
+          color='#DDDDDD'
+          borderColor='#46738B'
+          key={row.id}>
             {row.getVisibleCells().map((cell) => {
               // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
               const meta: any = cell.column.columnDef.meta;
               return (
-                <Td key={cell.id} isNumeric={meta?.isNumeric}>
+                <Td 
+                borderColor='#46738B'
+                key={cell.id} isNumeric={meta?.isNumeric}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </Td>
               );
