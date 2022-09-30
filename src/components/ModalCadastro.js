@@ -14,40 +14,43 @@ import {
     FormLabel,
 } from '@chakra-ui/react'
 import '../styles/styles.css';
+import {cores} from '../styles/colors';
+
 
 function ModalCadastro() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef(null)
     return (
         <>
-            <Button onClick={onOpen} ml='3%' colorScheme='facebook'>Cadastrar Entrega</Button>
+            <Button onClick={onOpen} ml='1%' colorScheme='brand'>Cadastrar Entrega</Button>
 
             <Modal
+               
                 isCentered
                 onClose={onClose}
                 isOpen={isOpen}
                 motionPreset='slideInBottom'
             >
                 <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
+                <ModalContent  bg={cores.backgroundSecundario}>
+                    <ModalHeader color='white' as='b'>Modal Title</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <FormControl>
-                            <FormLabel>First name</FormLabel>
-                            <Input ref={initialRef} placeholder='First name' />
+                            <FormLabel color='white' as='b'>First name</FormLabel>
+                            <Input color='#cccccc' ref={initialRef} placeholder='First name' _placeholder={{ color: '#cccccc' }}/>
                         </FormControl>
 
                         <FormControl mt={4}>
-                            <FormLabel>Last name</FormLabel>
-                            <Input placeholder='Last name' />
+                            <FormLabel color='white' as='b'>Last name</FormLabel>
+                            <Input color='#cccccc' placeholder='Last name'  _placeholder={{ color: '#cccccc' }}/>
                         </FormControl>
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
+                        <Button colorScheme='close' mr={3} onClick={onClose}>
+                            Cancelar
                         </Button>
-                        <Button variant='ghost'>Secondary Action</Button>
+                        <Button colorScheme='brand' >Cadastrar</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

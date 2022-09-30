@@ -3,6 +3,7 @@ import { Input, Text, Flex, Box } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "./DataTable";
 import ModalCadastro from './ModalCadastro';
+import {cores} from '../styles/colors';
 
 
 type UnitConversion = {
@@ -112,19 +113,25 @@ function CustomTable() {
     return (
         <Flex
             pb='5%'
-            mt='1%'
+            pt='1%'
             direction='column'
-            bgGradient='linear(to-b,white 80%, #2F576D 20%)'>
+            bg={cores.backgroundPadrao}
+           // bgGradient='linear(to-b,white 80%, #2F576D 20%)'
+           >
             <Flex direction='row'>
-                <Text ml='10%' as='b' color='black' fontSize='2xl'>Entregue </Text>
+                <Text ml='10%' as='b' color='#DADADA' fontSize='2xl'>Entregue </Text>
                 <Input
-                    focusBorderColor='black'
+                    bg='#2F576D'
+                    color='white'
+                    focusBorderColor='#3E86B0'
                     borderWidth='1'
                     borderColor='#2F576D'
                     ml='1%'
-                    w='32%'
+                    w='43%'
                     onChange={handleChange}
-                    placeholder='Digite o ID, nome, condição da entrega ou atribuição' />
+                    placeholder='Digite o ID, nome, condição da entrega ou atribuição'
+                    _placeholder={{ color: 'white' }}
+                     />
                 <ModalCadastro />
             </Flex>
             <Box 
@@ -139,7 +146,9 @@ function CustomTable() {
              mt='1%' 
              ml='10%'
              w='80%' 
-             bg='white'>
+             bg={cores.backgroundSecundario}
+
+             >
                 {dt.length !== 0 ?
                     <DataTable columns={columns} data={dt} />
                     :
