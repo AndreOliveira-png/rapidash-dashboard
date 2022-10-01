@@ -4,12 +4,13 @@ import { Flex } from '@chakra-ui/react'
 import Body from './components/Body';
 
 function App() {
-  return (
-    <Flex direction='column'>
-      <Header />
-      <Body />
-    </Flex>
-  );
-}
 
-export default App;
+    return (
+      <Flex direction='column'>
+        <Header />
+        <Body />
+      </Flex>
+    );
+  }
+
+  export default App;

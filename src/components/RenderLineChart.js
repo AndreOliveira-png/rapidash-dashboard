@@ -96,10 +96,10 @@ export const RenderBarChart = () => {
             fill: 'url(#colorUv3)',
         }
     ];
-    
+
     return(
     <BarChart
-        width= {screenWidth / 3.6}
+        width={screenWidth / 3.6}
         height={ screenHeight / 2.2}
         data={dataBar}
         margin={{
