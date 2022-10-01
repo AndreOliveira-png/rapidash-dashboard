@@ -42,8 +42,9 @@ export function DataTable<Data extends object>({
               const meta: any = header.column.columnDef.meta;
               return (
                 <Th
-                borderColor='#46738B'
+                  borderColor='#46738B'
                   color='white'
+                  fontSize='md'
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
                   isNumeric={meta?.isNumeric}
@@ -53,7 +54,7 @@ export function DataTable<Data extends object>({
                     header.getContext()
                   )}
 
-                  <chakra.span pl="4">
+                  <chakra.span  pl="4">
                     {header.column.getIsSorted() ? (
                       header.column.getIsSorted() === "desc" ? (
                         <TriangleDownIcon aria-label="sorted descending" />
@@ -73,12 +74,13 @@ export function DataTable<Data extends object>({
           <Tr 
           color='#DDDDDD'
           borderColor='#46738B'
+          
           key={row.id}>
             {row.getVisibleCells().map((cell) => {
               // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
               const meta: any = cell.column.columnDef.meta;
               return (
-                <Td 
+                <Td  
                 borderColor='#46738B'
                 key={cell.id} isNumeric={meta?.isNumeric}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

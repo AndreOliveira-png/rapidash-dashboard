@@ -6,6 +6,7 @@ import ModalCadastro from './ModalCadastro';
 import { cores } from '../styles/colors';
 import { Search2Icon } from '@chakra-ui/icons'
 import { InputLeftElement, InputGroup, InputRightElement } from '@chakra-ui/react'
+import { useMedia } from 'react-use'
 
 
 type UnitConversion = {
@@ -62,12 +63,12 @@ const data: UnitConversion[] = [
 
 let textoFiltrado: any = []
 export const filter = (text: string) => {
-
+    let str = text.toLowerCase()
     textoFiltrado = data.filter(dado => {
-        if (dado.id.includes(text)
-            || dado.atribuida.includes(text)
-            || dado.nomeEntregador.includes(text)
-            || dado.entregue.includes(text)) {
+        if (dado.id.toLowerCase().includes(str)
+            || dado.atribuida.toLowerCase().includes(str)
+            || dado.nomeEntregador.toLowerCase().includes(str)
+            || dado.entregue.toLowerCase().includes(str)) {
             return dado
         }
     });
@@ -99,6 +100,7 @@ const columns = [
 
 
 function CustomTable() {
+    const isMobile = useMedia('(max-width: 40em)')
 
     const [dt, setDt] = useState([]);
     let text = ''
@@ -111,8 +113,7 @@ function CustomTable() {
 
     };
 
-    console.log(dt)
-    return (
+    return ( 
         <Flex
             pb='5%'
             pt='1%'
@@ -121,8 +122,8 @@ function CustomTable() {
         // bgGradient='linear(to-b,white 80%, #2F576D 20%)'
         >
             <Flex direction='row'>
-                <Text ml='10%' as='b' color='#DADADA' fontSize='2xl'>Entregue </Text>
-                <InputGroup w='44%'>
+                <Text ml='10%' as='b' color='#DADADA' fontSize='2xl'>Encomendas </Text>
+                <InputGroup w='41%'>
 
                     <Input
                         bg='#2F576D'
@@ -167,8 +168,6 @@ function CustomTable() {
                 }
             </Box>
         </Flex>
-
-
     )
 }
 
