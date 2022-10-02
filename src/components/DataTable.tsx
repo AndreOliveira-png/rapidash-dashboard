@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, chakra } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import { useMedia } from 'react-use'
 
 import {
   useReactTable,
@@ -31,7 +32,7 @@ export function DataTable<Data extends object>({
       sorting
     }
   });
-
+  const isMobile = useMedia('(max-width: 40em)')
   return (
     <Table variant='simple' colorScheme='blue'>
       <Thead bg='#2F576D'>
@@ -40,15 +41,16 @@ export function DataTable<Data extends object>({
             {headerGroup.headers.map((header) => {
               // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
               const meta: any = header.column.columnDef.meta;
-              return (
-                <Th
+              return (   
+                  <Th
                   borderColor='#46738B'
                   color='white'
-                  fontSize='md'
+                  fontSize={isMobile ? 'lg' : 'md'}
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
                   isNumeric={meta?.isNumeric}
                 >
+               
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext()
@@ -80,7 +82,7 @@ export function DataTable<Data extends object>({
               // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
               const meta: any = cell.column.columnDef.meta;
               return (
-                <Td  
+                <Td
                 borderColor='#46738B'
                 key={cell.id} isNumeric={meta?.isNumeric}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -27,7 +27,7 @@ function ModalCadastro() {
         <>
         {isMobile ? 
         <Flex justify='center'>
-            <Button w='50%' mt='5%'onClick={onOpen} ml='1%' colorScheme='brand'>Cadastrar Entrega</Button>
+            <Button w='60%' p='6%' fontSize='xl' mt='5%'onClick={onOpen} ml='1%' colorScheme='brand'>Cadastrar Entrega</Button>
         </Flex>
         :
         <Button  onClick={onOpen} ml='1%' colorScheme='brand'>Cadastrar Entrega</Button>
