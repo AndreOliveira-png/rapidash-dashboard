@@ -5,7 +5,7 @@ import { DataTable } from "./DataTable";
 import ModalCadastro from './ModalCadastro';
 import { cores } from '../styles/colors';
 import { Search2Icon } from '@chakra-ui/icons'
-import { InputLeftElement, InputGroup, InputRightElement } from '@chakra-ui/react'
+import { InputGroup, InputRightElement } from '@chakra-ui/react'
 
 
 type UnitConversion = {

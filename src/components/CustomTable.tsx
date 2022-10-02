@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Input, Text, Flex, Box } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "./DataTable";
 import ModalCadastro from './ModalCadastro';
 import { cores } from '../styles/colors';
 import { Search2Icon } from '@chakra-ui/icons'
-import { InputLeftElement, InputGroup, InputRightElement } from '@chakra-ui/react'
-import { useMedia } from 'react-use'
+import { InputGroup, InputRightElement } from '@chakra-ui/react'
 
 
 type UnitConversion = {
@@ -100,8 +99,6 @@ const columns = [
 
 
 function CustomTable() {
-    const isMobile = useMedia('(max-width: 40em)')
-
     const [dt, setDt] = useState([]);
     let text = ''
     const handleChange = (event: any) => {
@@ -112,7 +109,6 @@ function CustomTable() {
         }
 
     };
-    console.log(dt)
     return ( 
         <Flex
             pb='5%'

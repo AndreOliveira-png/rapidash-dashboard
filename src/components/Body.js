@@ -6,7 +6,6 @@ import CustomTable from './CustomTable';
 import CustomTableMobile from './CustomTableMobile';
 import { cores } from '../styles/colors';
 import { useMedia } from 'react-use'
-import { ResponsiveContainer } from 'recharts';
 
 
 

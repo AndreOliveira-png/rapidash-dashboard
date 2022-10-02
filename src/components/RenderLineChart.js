@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react'
 import { BarChart, AreaChart, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import '../styles/styles.css'
 import { QuestionIcon, CheckIcon, WarningTwoIcon, EmailIcon, CalendarIcon } from '@chakra-ui/icons'
