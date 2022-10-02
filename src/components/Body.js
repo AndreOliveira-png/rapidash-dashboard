@@ -44,7 +44,7 @@ function Body() {
         :
         <Flex direction='column'>
             <Flex direction='column' justify='center' bg={cores.backgroundPadrao}>
-                <Text ml='5%' as='b' color='#DADADA' className="txtHeader" fontSize='lg'>Relação entre encomendas entregues </Text>
+                <Text ml='5%' as='b' color='#DADADA' className="txtHeader" fontSize='lg'>Relação entre entregas por dia </Text>
                 <Divider ml='5%' bg='white' w="90%" h="1px" orientation='horizontal' />
             </Flex>
             
