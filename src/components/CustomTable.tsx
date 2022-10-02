@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Input, Text, Flex, Box } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "./DataTable";
 import ModalCadastro from './ModalCadastro';
 import { cores } from '../styles/colors';
 import { Search2Icon } from '@chakra-ui/icons'
-import { InputLeftElement, InputGroup, InputRightElement } from '@chakra-ui/react'
-import { useMedia } from 'react-use'
+import { InputGroup, InputRightElement } from '@chakra-ui/react'
 
 
 type UnitConversion = {
@@ -100,8 +99,6 @@ const columns = [
 
 
 function CustomTable() {
-    const isMobile = useMedia('(max-width: 40em)')
-
     const [dt, setDt] = useState([]);
     let text = ''
     const handleChange = (event: any) => {
@@ -112,7 +109,6 @@ function CustomTable() {
         }
 
     };
-
     return ( 
         <Flex
             pb='5%'
@@ -122,7 +118,7 @@ function CustomTable() {
         // bgGradient='linear(to-b,white 80%, #2F576D 20%)'
         >
             <Flex direction='row'>
-                <Text ml='10%' as='b' color='#DADADA' fontSize='2xl'>Encomendas </Text>
+                <Text ml='10%' as='b' color='#DADADA' fontSize='lg'>Encomendas </Text>
                 <InputGroup w='41%'>
 
                     <Input
@@ -149,7 +145,7 @@ function CustomTable() {
             <Box
                 className='boxTable'
                 minH='300px'
-                h='50%'
+                h='50vh'
                 maxH='300px'
                 pb='5px'
                 borderRadius="md"
@@ -161,10 +157,14 @@ function CustomTable() {
                 bg={cores.backgroundSecundario}
 
             >
-                {dt.length !== 0 ?
-                    <DataTable columns={columns} data={dt} />
-                    :
-                    <DataTable columns={columns} data={data} />
+                {dt.length === 0 ?
+                <Flex w='100%'  h='100%' direction='row' justifyContent ='center' alignItems='center'>
+                    <Text  as='b' fontSize='lg' color='white'>Nenhuma Entrega corresponde ao que foi digitado.</Text>
+                </Flex>         
+                :dt.length !== 0 ? 
+                <DataTable columns={columns} data={dt} />  
+                :
+                 <DataTable columns={columns} data={data} />                 
                 }
             </Box>
         </Flex>

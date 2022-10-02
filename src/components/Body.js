@@ -15,7 +15,7 @@ function Body() {
     return (
         
         !isMobile ? 
-        <Flex direction='column'>
+        <Flex direction='column' >
             <Flex justify='center' bg={cores.backgroundPadrao}>
                 <Divider bg='white' w="80%" h="2px" orientation='horizontal' />
             </Flex>
@@ -28,10 +28,10 @@ function Body() {
                 pt='1%'
             >
 
-                <Box bg={cores.backgroundSecundario} boxShadow='2xl' ml='10%' borderRadius="md" borderColor={cores.backgroundPadrao} borderWidth='2px'>
+                <Box w='50%' h='45vh' bg={cores.backgroundSecundario} boxShadow='2xl' ml='10%' borderRadius="md" borderColor={cores.backgroundPadrao} borderWidth='2px'>
                     <RenderAreaChart />
                 </Box>
-                <Box bg={cores.backgroundSecundario} boxShadow='2xl' ml='1%' borderRadius="md" borderColor={cores.backgroundPadrao} borderWidth='2px'>
+                <Box w='29%' h='45vh' bg={cores.backgroundSecundario} boxShadow='2xl' ml='1%' borderRadius="md" borderColor={cores.backgroundPadrao} borderWidth='2px'>
                     <RenderBarChart />
                 </Box>
 
@@ -56,8 +56,10 @@ function Body() {
                 pt='1%'
             >
                 
-                <Box bg={cores.backgroundSecundario} boxShadow='2xl' borderRadius="md" borderColor={cores.backgroundPadrao} borderWidth='2px'>  
+                <Box w='90%' h='250px' bg={cores.backgroundSecundario} boxShadow='2xl' borderRadius="md" borderColor={cores.backgroundPadrao} borderWidth='2px'>  
+              
                     <RenderAreaChart />
+
                 </Box>
             </Flex>
             
@@ -73,8 +75,10 @@ function Body() {
                 pt='1%'
             >
                 
-                <Box bg={cores.backgroundSecundario} boxShadow='2xl' borderRadius="md" borderColor={cores.backgroundPadrao} borderWidth='2px'>  
+                <Box w='90%' h='250px' bg={cores.backgroundSecundario} boxShadow='2xl' borderRadius="md" borderColor={cores.backgroundPadrao} borderWidth='2px'>  
+                
                     <RenderBarChart />
+                
                 </Box>
             </Flex>
             <CustomTableMobile />

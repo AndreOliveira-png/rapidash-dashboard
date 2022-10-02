@@ -5,7 +5,7 @@ import { DataTable } from "./DataTable";
 import ModalCadastro from './ModalCadastro';
 import { cores } from '../styles/colors';
 import { Search2Icon } from '@chakra-ui/icons'
-import { InputLeftElement, InputGroup, InputRightElement } from '@chakra-ui/react'
+import { InputGroup, InputRightElement } from '@chakra-ui/react'
 
 
 type UnitConversion = {
@@ -86,6 +86,7 @@ function CustomTable() {
         }
 
     };
+    
     return (
         <Flex
         pb='5%'
@@ -122,22 +123,26 @@ function CustomTable() {
         <Box
             className='boxTable'
             minH='300px'
-            h='50%'
+            h='50vh'
             maxH='300px'
             pb='5px'
             borderRadius="md"
             borderWidth='1px'
             borderColor='#2F576D'
             mt='5%'
-            ml='10%'
-            w='80%'
+            ml='5%'
+            w='90%'
             bg={cores.backgroundSecundario}
 
         >
-            {dt.length !== 0 ?
-                <DataTable columns={columns} data={dt} />
+             {dt.length === 0 ?
+                <Flex w='100%'  h='100%' direction='row' justifyContent ='center' alignItems='center'>
+                    <Text  as='b' fontSize='sm' color='white'>Nenhuma Entrega corresponde ao que foi digitado.</Text>
+                </Flex>         
+                :dt.length !== 0 ? 
+                <DataTable columns={columns} data={dt} />  
                 :
-                <DataTable columns={columns} data={data} />
+                 <DataTable columns={columns} data={data} />                 
             }
             
         </Box>

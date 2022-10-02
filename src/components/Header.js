@@ -19,9 +19,9 @@ function Header() {
 
         >
             <Flex direction='row' align='center'>
-                <Text as='b' color='#DADADA' ml='10%' className="txtHeader" fontSize='2xl'>Bem Vindo SysAdmin</Text>
+                <Text as='b' color='#DADADA' ml='10%' className="txtHeader" fontSize='xl'>Bem Vindo SysAdmin</Text>
                 <Spacer />
-                <Text as='b' color='#DADADA' className="txtHeader" fontSize='2xl'>Rapidash Sistemas</Text>
+                <Text as='b' color='#DADADA' className="txtHeader" fontSize='xl'>Rapidash Sistemas</Text>
                 <Image
                     boxSize='10%'
                     objectFit='cover'
@@ -29,9 +29,11 @@ function Header() {
             </Flex>
 
             <Flex direction='row'>
+
                 <Text ml='10%' as='b' color='#DADADA' className="txtHeader" fontSize='2xl'>Relação entre entregas por dia </Text>
                 <Spacer />
                 <Text mr='10%' as='b' color='#DADADA' className="txtHeader" fontSize='2xl'>Relação entre encomendas entregues</Text>
+
             </Flex>
         </Flex>
         :

@@ -61,4 +61,31 @@ Body::-webkit-scrollbar-track {
 
 Body::-webkit-scrollbar-thumb {
     background-color: #244354;
+}.container-area-chart{
+    -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  height: 400px;
+  background-color: #fff;
 }
+
+@media only screen and (max-width: 600px) and (orientation: portrait) {
+    td{
+        width:10vw;
+        max-width:200px;
+        white-space: nowrap; 
+        text-overflow:ellipsis; 
+        overflow: hidden;
+    }
+  }
+  @media only screen and (max-height: 600px) and (orientation: landscape) {
+    td{
+        width:10vw;
+        max-width:200px;
+        white-space: nowrap; 
+        text-overflow:ellipsis; 
+        overflow: hidden;
+    }
+  }

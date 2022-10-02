@@ -1,4 +1,4 @@
-import { BarChart, AreaChart, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, AreaChart, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import '../styles/styles.css'
 import { QuestionIcon, CheckIcon, WarningTwoIcon, EmailIcon, CalendarIcon } from '@chakra-ui/icons'
 import { Flex, Text } from '@chakra-ui/react'
@@ -62,17 +62,10 @@ const renderLegend = (props) => {
         </Flex>
     );
 }
-function getWindowSize() {
-    const { innerWidth, innerHeight } = window;
-    return { innerWidth, innerHeight };
-}
-
-const windowSize = getWindowSize();
 
 export const RenderBarChart = () => {
     const isMobile = useMedia('(max-width: 40em)')
-    const screenWidth = isMobile ? windowSize.innerWidth * 3.1 : windowSize.innerWidth
-    const screenHeight = isMobile ? windowSize.innerHeight / 1.5 : windowSize.innerHeight
+    const isRotate = useMedia('(max-height: 700px)');
     const dataBar = [
         {
             name: 'Entregues',
@@ -98,9 +91,8 @@ export const RenderBarChart = () => {
     ];
 
     return(
+        <ResponsiveContainer>
     <BarChart
-        width={screenWidth / 3.6}
-        height={ screenHeight / 2.2}
         data={dataBar}
         margin={{
             top: 5,
@@ -138,9 +130,12 @@ export const RenderBarChart = () => {
                 outline: 'none',
             }}
         />
-        <Legend content={renderLegend} />
+        {(!isMobile  && !isRotate) &&
+        <Legend content={renderLegend} 
+        />}
         <Bar stroke="#636219" dataKey="entregas" fill="white" />
     </BarChart>
+</ResponsiveContainer>
     )
 }
 
@@ -191,13 +186,9 @@ const dataArea = [
 ];
 
 export const RenderAreaChart = () =>{
-    const isMobile = useMedia('(max-width: 40em)')
-    const screenWidth = isMobile ? windowSize.innerWidth * 1.7 : windowSize.innerWidth
-    const screenHeight = isMobile ? windowSize.innerHeight / 1.5 : windowSize.innerHeight
     return(
+<ResponsiveContainer>
 <AreaChart
-        width={ screenWidth / 2}
-        height={screenHeight / 2.2}
         data={dataArea}
         margin={{
             top: 10,
@@ -224,5 +215,6 @@ export const RenderAreaChart = () =>{
 
         <Area type="monotone" dataKey="entregas" stroke="#B0AD35" fill="url(#colorUv)" />
     </AreaChart>
+    </ResponsiveContainer>
     )
 }
