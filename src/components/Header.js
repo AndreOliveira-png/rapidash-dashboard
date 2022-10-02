@@ -29,9 +29,11 @@ function Header() {
             </Flex>
 
             <Flex direction='row'>
-                <Text ml='10%' as='b' color='#DADADA' className="txtHeader" fontSize='xl'>Relação entre encomendas entregues </Text>
+
+                <Text ml='10%' as='b' color='#DADADA' className="txtHeader" fontSize='2xl'>Relação entre entregas por dia </Text>
                 <Spacer />
-                <Text mr='10%' as='b' color='#DADADA' className="txtHeader" fontSize='xl'>Relação entre entregas por dia </Text>
+                <Text mr='10%' as='b' color='#DADADA' className="txtHeader" fontSize='2xl'>Relação entre encomendas entregues</Text>
+
             </Flex>
         </Flex>
         :
