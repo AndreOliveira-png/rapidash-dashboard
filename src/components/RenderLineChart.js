@@ -21,7 +21,7 @@ import {
 import { Flex, Text } from '@chakra-ui/react';
 import { useMedia } from 'react-use';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // The default icon size is 1em (16px)
 
 const CustomTooltipBar = ({ active, payload, label }) => {
@@ -81,13 +81,19 @@ const renderLegend = (props) => {
 export const RenderBarChart = ({ data }) => {
   const isMobile = useMedia('(max-width: 40em)');
   const isRotate = useMedia('(max-height: 700px)');
-
+  const [loading, setLoading] = useState(false);
   const [dataBarr, setDataBarr] = useState({});
-
-  axios
+useEffect(() =>{
+  if(!loading){
+    setLoading(true)
+    axios
     .get('dataBar', { baseURL: 'https://topicos2.herokuapp.com' })
     .then((res) => setDataBarr(res.data))
     .catch((error) => console.log(error));
+  }
+ 
+})
+  
 
   const dataBar = [
     {

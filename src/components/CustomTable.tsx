@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Text, Flex, Box } from '@chakra-ui/react';
 import { createColumnHelper } from '@tanstack/react-table';
 import { DataTable } from './DataTable';
@@ -100,6 +100,7 @@ const columns = [
 function CustomTable() {
   const [data, setData] = useState([]);
   const [dt, setDt] = useState([]);
+  const [loading, setLoading] = useState(false)
   let text = '';
   const handleChange = (event: any) => {
     text = event.target.value;
@@ -123,8 +124,10 @@ function CustomTable() {
   //   )
   //   .then((data) => console.log(data))
   //   .catch((error) => console.log(error));
-
-  axios
+useEffect(() =>{
+  if(!loading){
+    setLoading(true)
+    axios
     .get('delivery/all', { baseURL: 'https://topicos2.herokuapp.com' })
     .then((res) => res.data)
     .then((data) =>
@@ -132,15 +135,17 @@ function CustomTable() {
         data.map((e: any) => {
           return {
             id: e.id,
-            atribuida: e.userId ? 'sim' : 'não',
-            nomeEntregador: e.user?.fullName,
-            entregue: e.delivered ? 'sim' : 'não',
+            atribuida: e.userId ? 'Sim' : 'Não',
+            nomeEntregador: e.user?.fullName ? e.user?.fullName : "Nenhum",
+            entregue: e.delivered ? 'Sim' : 'Não',
           };
         })
       )
     )
     .catch((error) => console.log(error));
-
+  }
+},[])
+  
   return (
     <Flex
       pb='5%'
