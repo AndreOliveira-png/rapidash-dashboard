@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/styles.css';
-import { Text, Flex, Divider, Box } from '@chakra-ui/react'
+import { Text, Flex, Divider, Box } from '@chakra-ui/react';
 import { RenderBarChart, RenderAreaChart } from './RenderLineChart';
 import CustomTable from './CustomTable';
 import CustomTableMobile from './CustomTableMobile';
 import { cores } from '../styles/colors';
-import { useMedia } from 'react-use'
-
-
-
+import { useMedia } from 'react-use';
 
 function Body() {
+
     const isMobile = useMedia('(max-width: 40em)')
     return (
 
@@ -79,9 +77,7 @@ function Body() {
                 </Flex>
                 <CustomTableMobile />
             </Flex>
-
-
-    );
+  );
 }
 
 export default Body;
