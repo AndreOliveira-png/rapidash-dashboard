@@ -36,6 +36,8 @@ const theme = extendTheme({
 
 const cores = {
     backgroundPadrao: '#1F333F', //'#2b2b2b',
-    backgroundSecundario: '#234C63'
+    backgroundSecundario: '#234C63',
+    toastBackgroundErro:'#D4536C',
+    toastBackgroundSuccess:'#359C80'
 }
 export { cores, theme }
