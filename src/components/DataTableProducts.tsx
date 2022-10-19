@@ -15,7 +15,7 @@ import {
 export type DataTableProps<Data extends object> = {
     data: Data[];
     columns: ColumnDef<Data, any>[];
-    removeProduct:any;
+    removeProduct: any;
 };
 
 export function DataTableProducts<Data extends object>({
@@ -35,6 +35,8 @@ export function DataTableProducts<Data extends object>({
         }
     });
     const isMobile = useMedia('(max-width: 40em)')
+    let headerId = ''
+    let cellId = ''
     return (
         <Table variant='simple' colorScheme='blue'>
             <Thead bg='#2F576D'>
@@ -43,6 +45,7 @@ export function DataTableProducts<Data extends object>({
                         {headerGroup.headers.map((header) => {
                             // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
                             const meta: any = header.column.columnDef.meta;
+                            headerId = Number(header.id + 1).toString();
                             return (
                                 <Th
                                     textAlign="center"
@@ -72,6 +75,7 @@ export function DataTableProducts<Data extends object>({
                             );
                         })}
                         <Th
+                            key={headerId}
                             borderColor='#46738B'
                             color='white'
                             fontSize={isMobile ? 'lg' : 'md'}
@@ -91,6 +95,7 @@ export function DataTableProducts<Data extends object>({
                         {row.getVisibleCells().map((cell) => {
                             // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
                             const meta: any = cell.column.columnDef.meta;
+                            cellId = Number(cell.id + 1).toString();
                             return (
                                 <Td
                                     textAlign="center"
@@ -100,7 +105,7 @@ export function DataTableProducts<Data extends object>({
                                 </Td>
                             );
                         })}
-                        <Td textAlign="end" borderColor='#46738B'><Button colorScheme="close" onClick={() => {removeProduct(row.id)}}>Remover</Button></Td>
+                        <Td key={cellId} textAlign="end" borderColor='#46738B'><Button colorScheme="close" onClick={() => { removeProduct(row.id) }}>Remover</Button></Td>
                     </Tr>
                 ))}
             </Tbody>

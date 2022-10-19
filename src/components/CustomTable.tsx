@@ -6,7 +6,7 @@ import ModalCadastro from './ModalCadastro';
 import { cores } from '../styles/colors';
 import { Search2Icon } from '@chakra-ui/icons';
 import { InputGroup, InputRightElement } from '@chakra-ui/react';
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 type UnitConversion = {
   id: string;
@@ -129,8 +129,8 @@ useEffect(() =>{
     setLoading(true)
     axios
     .get('delivery/all', { baseURL: 'https://topicos2.herokuapp.com' })
-    .then((res) => res.data)
-    .then((data) =>
+    .then((res : AxiosResponse<any> ) => res.data)
+    .then((data : any) =>
       setData(
         data.map((e: any) => {
           return {
@@ -142,7 +142,7 @@ useEffect(() =>{
         })
       )
     )
-    .catch((error) => console.log(error));
+    .catch((error: Error | AxiosError) => console.log(error));
   }
 },[])
   
