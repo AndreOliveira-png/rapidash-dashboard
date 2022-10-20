@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Input, Button, Text, Flex, Box } from '@chakra-ui/react'
+import { Text, Flex, Box } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
-import { DataTableProducts } from "./DataTableProducts";
-import ModalCadastro from './ModalCadastro';
-import { cores } from '../styles/colors';
-import { Search2Icon } from '@chakra-ui/icons'
-import { InputGroup, InputRightElement } from '@chakra-ui/react'
-import { Product } from '../types/types'
+import { DataTableProducts } from "../data-render/DataTableProducts";
+import { cores } from '../../../styles/colors';
+import { Product } from '../../../types/types'
 
 
 
@@ -35,12 +32,11 @@ const TableProducts = (props: any) => {
 
     return (
         <Flex
+            pt='10%'
             direction='column'
-            bg={cores.backgroundPadrao}
+            bg={cores.backgroundSecundario}
         // bgGradient='linear(to-b,white 80%, #2F576D 20%)'
         >
-            <Flex pt='10%' direction='row' bg={cores.backgroundSecundario}>
-            </Flex>
             <Box
                 className='boxTable'
                 borderWidth='1px'

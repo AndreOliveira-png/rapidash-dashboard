@@ -3,7 +3,7 @@ import {
     Flex,
     Text,
 } from '@chakra-ui/react'
-import { cores } from '../styles/colors'
+import { cores } from '../../styles/colors'
 import {WarningIcon, CheckCircleIcon } from '@chakra-ui/icons'
 
 export const CustomToast = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './components/Header';
+import Header from './components/screens/Header';
 import { Flex } from '@chakra-ui/react'
-import Body from './components/Body';
+import Body from './components/screens/Body';
 
 function App() {
 

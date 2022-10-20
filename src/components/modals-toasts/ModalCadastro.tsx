@@ -15,11 +15,11 @@ import {
     Flex,
     Text,
 } from '@chakra-ui/react'
-import '../styles/styles.css';
-import { cores } from '../styles/colors';
+import '../../styles/styles.css';
+import { cores } from '../../styles/colors';
 import { useMedia } from 'react-use'
-import { Delivery, Product } from '../types/types'
-import TableProducts from './TableProducts';
+import { Delivery, Product } from '../../types/types'
+import TableProducts from '../tables/component/TableProducts';
 import { CustomToast } from './Toast';
 
 

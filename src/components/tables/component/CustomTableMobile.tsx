@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Input, Text, Flex, Box } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
-import { DataTable } from "./DataTable";
-import ModalCadastro from './ModalCadastro';
-import { cores } from '../styles/colors';
+import { DataTable } from "../data-render/DataTable";
+import ModalCadastro from '../../modals-toasts/ModalCadastro';
+import { cores } from '../../../styles/colors';
 import { Search2Icon } from '@chakra-ui/icons'
 import { InputGroup, InputRightElement } from '@chakra-ui/react'
 
