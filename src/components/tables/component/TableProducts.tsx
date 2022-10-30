@@ -15,7 +15,7 @@ const columns = [
         cell: (info) => info.getValue(),
         header: "Nome"
     }),
-    columnHelper.accessor("qtd", {
+    columnHelper.accessor("quantity", {
         cell: (info) => info.getValue(),
         header: "Quantidade"
     }),

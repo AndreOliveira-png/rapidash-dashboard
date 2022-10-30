@@ -7,12 +7,13 @@ import { cores } from '../../../styles/colors';
 import { Search2Icon } from '@chakra-ui/icons';
 import { InputGroup, InputRightElement } from '@chakra-ui/react';
 import { ApiRequester } from '../../../apis/api-requester';
+import {Product} from '../../../types/types'
 
 type UnitConversion = {
-  id: string;
-  atribuida: string;
-  nomeEntregador: string;
+  destiny: string;
   entregue: string;
+  nomeEntregador: string;
+  produtos: Product[];
 };
 
 // const data: UnitConversion[] = [
@@ -65,10 +66,9 @@ export const filter = (text: string, data: any) => {
   let str = text.toLowerCase();
   textoFiltrado = data.filter((dado: any) => {
     if (
-      dado.id?.toLowerCase().includes(str) ||
+      dado.destiny?.toLowerCase().includes(str) ||
       dado.atribuida?.toLowerCase().includes(str) ||
-      dado.nomeEntregador?.toLowerCase().includes(str) ||
-      dado.entregue?.toLowerCase().includes(str)
+      dado.nomeEntregador?.toLowerCase().includes(str)
     ) {
       return dado;
     }
@@ -79,21 +79,21 @@ export const filter = (text: string, data: any) => {
 const columnHelper = createColumnHelper<UnitConversion>();
 
 const columns = [
-  columnHelper.accessor('id', {
+  columnHelper.accessor('destiny', {
     cell: (info) => info.getValue(),
-    header: 'ID',
+    header: 'Destinatário',
   }),
-  columnHelper.accessor('atribuida', {
+  columnHelper.accessor('entregue', {
     cell: (info) => info.getValue(),
-    header: 'Atribuida',
+    header: 'Entregue',
   }),
   columnHelper.accessor('nomeEntregador', {
     cell: (info) => info.getValue(),
     header: 'Nome Entregador',
   }),
-  columnHelper.accessor('entregue', {
+  columnHelper.accessor('produtos', {
     cell: (info) => info.getValue(),
-    header: 'Entregue',
+    header: 'Produtos',
   }),
 ];
 
@@ -131,8 +131,8 @@ function CustomTable() {
     setData(
       d.map((e: any) => {
         return {
-          id: e.id,
-          atribuida: e.userId ? 'Sim' : 'Não',
+          destiny: e.destiny,
+          produtos: e.produtos ? 'Sim' : 'Não',
           nomeEntregador: e.user?.fullName ? e.user?.fullName : "Nenhum",
           entregue: e.delivered ? 'Sim' : 'Não',
         };

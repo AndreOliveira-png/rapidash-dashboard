@@ -1,11 +1,17 @@
 export type Delivery = {
-    fullName:string,
-    address:string
-    products: Product[] | undefined
+    destiny:string,
+    address:Address
+    producties: Product[] | undefined
+}
+export type Address = {
+    street:string,
+    number:string,
+    district:string,
+    cep:string
 }
 export type Product = {
     name:string | undefined
-    qtd:string | undefined
+    quantity:string | undefined
 }
 export type Deliver = {
     id:string

@@ -21,20 +21,29 @@ import { useMedia } from 'react-use'
 import { Delivery, Product } from '../../types/types'
 import TableProducts from '../tables/component/TableProducts';
 import { CustomToast } from './Toast';
+import { pesquisaEndereco } from '../../apis/shearchApi';
+import { ApiRequester } from '../../apis/api-requester';
 
 
 function ModalCadastro() {
     const inputNameRef = useRef<HTMLInputElement | null>();
     const inputQtdRef = useRef<HTMLInputElement | null>();
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     const [fullName, setFullName] = useState<string>('');
-    const [address, setAddress] = useState<string>('');
+    const [street, setStreet] = useState<string>('');
+    const [district, setDistrict] = useState<string>('');
+    const [houseNumber, setHouseNumber] = useState<string>('');
+    const [cep, setCep] = useState<string>('');
+
+
     const [message, ] = useState<string>();
     const [inputValues, setInputValues] = useState<Product[]>([])
     const [isNotValid, setIsNotValid] = useState<boolean[]>([])
     const isMobile = useMedia('(max-width: 40em)')
     const initialRef = React.useRef(null)
     const { errorToast, successToast } = CustomToast();
+    const {saveDelivery} = ApiRequester();
 
     const handleSave = () => {
 
@@ -54,7 +63,7 @@ function ModalCadastro() {
 
         let prod: Product = {
             name: inputNameRef.current?.value,
-            qtd: inputQtdRef?.current?.value
+            quantity: inputQtdRef?.current?.value
         }
         product.push(prod)
         setInputValues([...product])
@@ -65,30 +74,38 @@ function ModalCadastro() {
         product.splice(id, 1);
         setInputValues([...product])
     }
-    const saveDelivery = () => {
+    const handleSaveDelivery = () => {
         let valid: any = []
-        setFullName(fullName)
-        setAddress(address)
         if (fullName.trim().length === 0) {
             valid[0] = [true]
 
         }
-        if (address.trim().length === 0) {
+        if (street.trim().length === 0) {
             valid[1] = [true]
+        }
+        if (houseNumber.trim().length === 0) {
+            valid[2] = [true]
+        }
+        if (district.trim().length === 0) {
+            valid[3] = [true]
+        }
+        
+        if (cep.trim().length === 0) {
+            valid[4] = [true]
         }
         if (inputValues.length === 0) {
             console.log('Entrou')
             if (inputNameRef.current?.value.trim().length === 0) {
-                valid[2] = [true]
+                valid[5] = [true]
 
             }
             if (inputQtdRef.current?.value.trim().length === 0) {
-                valid[3] = [true]
+                valid[6] = [true]
             }
         }
 
         setIsNotValid(valid)
-        if(inputValues.length === 0 && (!valid[2] || !valid[3])){
+        if(inputValues.length === 0 && (!valid[5] || !valid[6])){
             errorToast({title:"Erro ao cadastrar uma encomenda",message:`Cadastre ao menos um produto.`});
             return
         }
@@ -98,12 +115,39 @@ function ModalCadastro() {
         }
 
         let deliveries: Delivery = {
-            fullName,
-            address,
-            products: inputValues
+            destiny:fullName,
+            address:{
+                street,
+                number:houseNumber,
+                district,
+                cep
+            },
+            producties: inputValues
         }
-        console.log(deliveries)
+        saveDelivery(deliveries)
         successToast({title:"Sucesso",message:`A encomenda foi cadastrada.`});
+    }
+
+    const pesquisarCep = async (text: string) => {
+        text = text.trim().replace("-","")
+
+        setCep(text)
+
+        if (text.length == 8) {
+            try {
+                const resp = await pesquisaEndereco(text)
+                if (resp) {
+                    if (resp.localidade) {
+                        setStreet(resp.logradouro)
+                        setDistrict(resp.bairro)
+                        return
+                    }
+                }
+            } catch (error) {
+                errorToast({title:"Erro ao consultar o CEP",message:`Por favor aguarde alguns segundos e tente novamente.`});
+            } finally {
+            }
+        }
     }
     
     return (
@@ -139,12 +183,50 @@ function ModalCadastro() {
                                 placeholder='Digite o Nome Completo'
                                 _placeholder={{ color: '#cccccc' }} />
                         </FormControl>
+
                         <FormControl>
-                            <FormLabel mt={3} color='white' as='b'>Endereço</FormLabel>
+                            <FormLabel mt={3} color='white' as='b'>Rua</FormLabel>
                             <Input color='#cccccc'
-                                onChange={e => { setAddress(e.target.value) }}
                                 borderColor={isNotValid[1] ? 'red' : 'white'}
-                                value={address}
+                                value={street}
+                                ref={initialRef}
+                                placeholder='Digite o Endereço'
+                                _placeholder={{ color: '#cccccc' }} 
+                                readOnly={true}
+                                />
+                                
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel mt={3} color='white' as='b'>Numero</FormLabel>
+                            <Input color='#cccccc'
+                                onChange={e => { setHouseNumber(e.target.value) }}
+                                borderColor={isNotValid[2] ? 'red' : 'white'}
+                                value={houseNumber}
+                                ref={initialRef}
+                                placeholder='Digite o Endereço'
+                                _placeholder={{ color: '#cccccc' }} />
+                        </FormControl>
+
+                        <FormControl>
+                            <FormLabel mt={3} color='white' as='b'>Bairro</FormLabel>
+                            <Input color='#cccccc'
+                                borderColor={isNotValid[3] ? 'red' : 'white'}
+                                value={district}
+                                ref={initialRef}
+                                placeholder='Digite o Endereço'
+                                _placeholder={{ color: '#cccccc' }}
+                                readOnly={true}
+                                 />
+                               
+                        </FormControl>
+
+                        <FormControl>
+                            <FormLabel mt={3} color='white' as='b'>CEP</FormLabel>
+                            <Input color='#cccccc'
+                                onChange = {e => {setCep(e.target.value)}}
+                                onBlur={e => { pesquisarCep(e.target.value) }}
+                                borderColor={isNotValid[4] ? 'red' : 'white'}
+                                value={cep}
                                 ref={initialRef}
                                 placeholder='Digite o Endereço'
                                 _placeholder={{ color: '#cccccc' }} />
@@ -164,7 +246,7 @@ function ModalCadastro() {
                                 <Flex w='100%' direction='column'>
                                     <FormLabel color='white' as='b'>Nome do Produto</FormLabel>
                                     <Input
-                                        borderColor={isNotValid[2] ? 'red' : 'white'}
+                                        borderColor={isNotValid[5] ? 'red' : 'white'}
                                         color='#cccccc'
                                         placeholder={`Nome do Produto`}
                                         _placeholder={{ color: '#cccccc' }}
@@ -175,7 +257,7 @@ function ModalCadastro() {
                                 <Flex w='25%' direction='column'>
                                     <FormLabel ml={3} color='white' as='b'>Quantidade</FormLabel>
                                     <Input
-                                        borderColor={isNotValid[3] ? 'red' : 'white'}
+                                        borderColor={isNotValid[6] ? 'red' : 'white'}
                                         ml={3}
                                         color='#cccccc'
                                         placeholder={`Quantidade`}
@@ -197,7 +279,7 @@ function ModalCadastro() {
                         <Button colorScheme='close' mr={3} onClick={onClose}>
                             Cancelar
                         </Button>
-                        <Button colorScheme='brand' onClick={() => { saveDelivery() }}>Cadastrar</Button>
+                        <Button colorScheme='brand' onClick={() => { handleSaveDelivery() }}>Cadastrar</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

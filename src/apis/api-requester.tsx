@@ -1,9 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import React from "react";
-import { BASE_URL } from "./config";
-
+import { BASE_URL, KEY } from "./config";
+import {Delivery} from "../types/types"
+import { CustomToast } from "../components/modals-toasts/Toast";
 
 export const ApiRequester = () => {
+    const { errorToast, successToast } = CustomToast();
 
     axios.defaults.baseURL = BASE_URL;
     axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -22,6 +24,17 @@ export const ApiRequester = () => {
         return Promise.reject(error);
     });
 
+    const saveDelivery = async(delivery:Delivery) =>{
+        const dt = {...delivery,key:KEY}
+        try{
+            const resp = axios.post('delivery',dt)
+        }catch(error: unknown){
+            console.log(error)
+            errorToast({title:"Erro ao cadastrar uma encomenda",message:`Por favor aguarde alguns segundos e tente novamente.`});
+        }
+        console.log(dt)
+
+    }
     const getDataBar = async () => {
 
         try {
@@ -46,5 +59,5 @@ export const ApiRequester = () => {
         }
     }
 
-    return { getDataBar, getTableData }
+    return { getDataBar, getTableData, saveDelivery }
 }
