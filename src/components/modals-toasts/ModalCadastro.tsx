@@ -37,23 +37,23 @@ function ModalCadastro() {
     const [cep, setCep] = useState<string>('');
 
 
-    const [message, ] = useState<string>();
+    const [message,] = useState<string>();
     const [inputValues, setInputValues] = useState<Product[]>([])
     const [isNotValid, setIsNotValid] = useState<boolean[]>([])
     const isMobile = useMedia('(max-width: 40em)')
     const initialRef = React.useRef(null)
     const { errorToast, successToast } = CustomToast();
-    const {saveDelivery} = ApiRequester();
+    const { saveDelivery } = ApiRequester();
 
     const handleSave = () => {
 
         if (inputNameRef.current?.value.trim().length === 0 || inputQtdRef.current?.value.trim().length === 0) {
-            errorToast({title:"Erro ao adicionar um novo produto",message:"Por favor preencha os dados do produto"});
+            errorToast({ title: "Erro ao adicionar um novo produto", message: "Por favor preencha os dados do produto" });
             return
         }
 
-        if (inputValues.some((el) => { return el.name === inputNameRef.current?.value })) {          
-            errorToast({title:"Erro ao adicionar um novo produto",message:"Este produto já foi cadastrado. Remova-o para cadastrar novamente"});
+        if (inputValues.some((el) => { return el.name === inputNameRef.current?.value })) {
+            errorToast({ title: "Erro ao adicionar um novo produto", message: "Este produto já foi cadastrado. Remova-o para cadastrar novamente" });
             return
         }
 
@@ -89,7 +89,7 @@ function ModalCadastro() {
         if (district.trim().length === 0) {
             valid[3] = [true]
         }
-        
+
         if (cep.trim().length === 0) {
             valid[4] = [true]
         }
@@ -105,31 +105,31 @@ function ModalCadastro() {
         }
 
         setIsNotValid(valid)
-        if(inputValues.length === 0 && (!valid[5] || !valid[6])){
-            errorToast({title:"Erro ao cadastrar uma encomenda",message:`Cadastre ao menos um produto.`});
+        if (inputValues.length === 0 && (!valid[5] || !valid[6])) {
+            errorToast({ title: "Erro ao cadastrar uma encomenda", message: `Cadastre ao menos um produto.` });
             return
         }
         if (valid.some((entry: any) => typeof entry[0] === 'boolean')) {
-            errorToast({title:"Erro ao cadastrar uma encomenda",message:`Preencha os campos destacados.`});
+            errorToast({ title: "Erro ao cadastrar uma encomenda", message: `Preencha os campos destacados.` });
             return
         }
 
         let deliveries: Delivery = {
-            destiny:fullName,
-            address:{
+            destiny: fullName,
+            address: {
                 street,
-                number:houseNumber,
+                number: houseNumber,
                 district,
                 cep
             },
             producties: inputValues
         }
         saveDelivery(deliveries)
-        successToast({title:"Sucesso",message:`A encomenda foi cadastrada.`});
+        successToast({ title: "Sucesso", message: `A encomenda foi cadastrada.` });
     }
 
     const pesquisarCep = async (text: string) => {
-        text = text.trim().replace("-","")
+        text = text.trim().replace("-", "")
 
         setCep(text)
 
@@ -144,12 +144,12 @@ function ModalCadastro() {
                     }
                 }
             } catch (error) {
-                errorToast({title:"Erro ao consultar o CEP",message:`Por favor aguarde alguns segundos e tente novamente.`});
+                errorToast({ title: "Erro ao consultar o CEP", message: `Por favor aguarde alguns segundos e tente novamente.` });
             } finally {
             }
         }
     }
-    
+
     return (
         <>
             {isMobile ?
@@ -183,55 +183,58 @@ function ModalCadastro() {
                                 placeholder='Digite o Nome Completo'
                                 _placeholder={{ color: '#cccccc' }} />
                         </FormControl>
-
-                        <FormControl>
-                            <FormLabel mt={3} color='white' as='b'>Rua</FormLabel>
-                            <Input color='#cccccc'
-                                borderColor={isNotValid[1] ? 'red' : 'white'}
-                                value={street}
-                                ref={initialRef}
-                                placeholder='Digite o Endereço'
-                                _placeholder={{ color: '#cccccc' }} 
-                                readOnly={true}
+                        <Flex>
+                            <FormControl flex={2}> 
+                                <FormLabel mt={3} color='white' as='b'>Rua</FormLabel>
+                                <Input color='#cccccc'
+                                    borderColor={isNotValid[1] ? 'red' : 'white'}
+                                    value={street}
+                                    ref={initialRef}
+                                    placeholder='Preencha o CEP'
+                                    _placeholder={{ color: '#cccccc' }}
+                                    readOnly={true}
                                 />
-                                
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel mt={3} color='white' as='b'>Numero</FormLabel>
-                            <Input color='#cccccc'
-                                onChange={e => { setHouseNumber(e.target.value) }}
-                                borderColor={isNotValid[2] ? 'red' : 'white'}
-                                value={houseNumber}
-                                ref={initialRef}
-                                placeholder='Digite o Endereço'
-                                _placeholder={{ color: '#cccccc' }} />
-                        </FormControl>
 
-                        <FormControl>
-                            <FormLabel mt={3} color='white' as='b'>Bairro</FormLabel>
-                            <Input color='#cccccc'
-                                borderColor={isNotValid[3] ? 'red' : 'white'}
-                                value={district}
-                                ref={initialRef}
-                                placeholder='Digite o Endereço'
-                                _placeholder={{ color: '#cccccc' }}
-                                readOnly={true}
-                                 />
-                               
-                        </FormControl>
+                            </FormControl>
 
-                        <FormControl>
-                            <FormLabel mt={3} color='white' as='b'>CEP</FormLabel>
-                            <Input color='#cccccc'
-                                onChange = {e => {setCep(e.target.value)}}
-                                onBlur={e => { pesquisarCep(e.target.value) }}
-                                borderColor={isNotValid[4] ? 'red' : 'white'}
-                                value={cep}
-                                ref={initialRef}
-                                placeholder='Digite o Endereço'
-                                _placeholder={{ color: '#cccccc' }} />
-                        </FormControl>
+                            <FormControl flex={1} ml={3}>
+                                <FormLabel mt={3} color='white' as='b'>Numero</FormLabel>
+                                <Input color='#cccccc'
+                                    onChange={e => { setHouseNumber(e.target.value) }}
+                                    borderColor={isNotValid[2] ? 'red' : 'white'}
+                                    value={houseNumber}
+                                    ref={initialRef}
+                                    placeholder='Digite Número'
+                                    _placeholder={{ color: '#cccccc' }} />
+                            </FormControl>
+                        </Flex>
+                        <Flex>
 
+                            <FormControl flex={2}>
+                                <FormLabel mt={3} color='white' as='b'>Bairro</FormLabel>
+                                <Input color='#cccccc'
+                                    borderColor={isNotValid[3] ? 'red' : 'white'}
+                                    value={district}
+                                    ref={initialRef}
+                                    placeholder='Preencha o CEP'
+                                    _placeholder={{ color: '#cccccc' }}
+                                    readOnly={true}
+                                />
+
+                            </FormControl>
+
+                            <FormControl flex={1} ml={3}>
+                                <FormLabel mt={3} color='white' as='b'>CEP</FormLabel>
+                                <Input color='#cccccc'
+                                    onChange={e => { setCep(e.target.value) }}
+                                    onBlur={e => { pesquisarCep(e.target.value) }}
+                                    borderColor={isNotValid[4] ? 'red' : 'white'}
+                                    value={cep}
+                                    ref={initialRef}
+                                    placeholder='Digite o Endereço'
+                                    _placeholder={{ color: '#cccccc' }} />
+                            </FormControl>
+                        </Flex>
                         <FormControl mt={4}>
                             <Flex
                                 direction='row'
