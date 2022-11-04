@@ -4,10 +4,13 @@ export type Delivery = {
     producties: Product[] | undefined
 }
 export type Address = {
-    street:string,
-    number:string,
-    district:string,
+    street:string
+    number:string
+    district:string
     cep:string
+    city:string
+    state:string
+
 }
 export type Product = {
     name:string | undefined

@@ -32,6 +32,8 @@ function ModalCadastro() {
 
     const [fullName, setFullName] = useState<string>('');
     const [street, setStreet] = useState<string>('');
+    const [city, setCity] = useState<string>('');
+    const [state, setState] = useState<string>('');
     const [district, setDistrict] = useState<string>('');
     const [houseNumber, setHouseNumber] = useState<string>('');
     const [cep, setCep] = useState<string>('');
@@ -93,14 +95,20 @@ function ModalCadastro() {
         if (cep.trim().length === 0) {
             valid[4] = [true]
         }
+        if (city.trim().length === 0) {
+            valid[5] = [true]
+        }
+        if (state.trim().length === 0) {
+            valid[6] = [true]
+        }
         if (inputValues.length === 0) {
             console.log('Entrou')
             if (inputNameRef.current?.value.trim().length === 0) {
-                valid[5] = [true]
+                valid[7] = [true]
 
             }
             if (inputQtdRef.current?.value.trim().length === 0) {
-                valid[6] = [true]
+                valid[8] = [true]
             }
         }
 
@@ -120,7 +128,9 @@ function ModalCadastro() {
                 street,
                 number: houseNumber,
                 district,
-                cep
+                cep,
+                city,
+                state
             },
             producties: inputValues
         }
@@ -137,9 +147,12 @@ function ModalCadastro() {
             try {
                 const resp = await pesquisaEndereco(text)
                 if (resp) {
+                    console.log(resp)
                     if (resp.localidade) {
                         setStreet(resp.logradouro)
                         setDistrict(resp.bairro)
+                        setCity(resp.localidade)
+                        setState(resp.uf)
                         return
                     }
                 }
@@ -235,6 +248,34 @@ function ModalCadastro() {
                                     _placeholder={{ color: '#cccccc' }} />
                             </FormControl>
                         </Flex>
+                        <Flex>
+
+                            <FormControl flex={2}>
+                                <FormLabel mt={3} color='white' as='b'>Cidade</FormLabel>
+                                <Input color='#cccccc'
+                                    borderColor={isNotValid[5] ? 'red' : 'white'}
+                                    value={city}
+                                    ref={initialRef}
+                                    placeholder='Preencha o CEP'
+                                    _placeholder={{ color: '#cccccc' }}
+                                    readOnly={true}
+                                />
+
+                            </FormControl>
+
+                            <FormControl flex={1} ml={3}>
+                                <FormLabel mt={3} color='white' as='b'>Estado</FormLabel>
+                                <Input color='#cccccc'
+                                    borderColor={isNotValid[5] ? 'red' : 'white'}
+                                    value={state}
+                                    ref={initialRef}
+                                    placeholder='Preencha o CEP'
+                                    _placeholder={{ color: '#cccccc' }}
+                                    readOnly={true}
+                                />
+
+                            </FormControl>
+                        </Flex>
                         <FormControl mt={4}>
                             <Flex
                                 direction='row'
@@ -249,7 +290,7 @@ function ModalCadastro() {
                                 <Flex w='100%' direction='column'>
                                     <FormLabel color='white' as='b'>Nome do Produto</FormLabel>
                                     <Input
-                                        borderColor={isNotValid[5] ? 'red' : 'white'}
+                                        borderColor={isNotValid[7] ? 'red' : 'white'}
                                         color='#cccccc'
                                         placeholder={`Nome do Produto`}
                                         _placeholder={{ color: '#cccccc' }}
@@ -260,7 +301,7 @@ function ModalCadastro() {
                                 <Flex w='25%' direction='column'>
                                     <FormLabel ml={3} color='white' as='b'>Quantidade</FormLabel>
                                     <Input
-                                        borderColor={isNotValid[6] ? 'red' : 'white'}
+                                        borderColor={isNotValid[8] ? 'red' : 'white'}
                                         ml={3}
                                         color='#cccccc'
                                         placeholder={`Quantidade`}
