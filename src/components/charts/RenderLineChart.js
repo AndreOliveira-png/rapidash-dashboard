@@ -221,10 +221,28 @@ const dataArea = [
 ];
 
 export const RenderAreaChart = () => {
+  const [loading, setLoading] = useState(false);
+  const [areaBar, setAreaBar] = useState({});
+  const { getAreaBar } = ApiRequester()
+
+  const request = async () => {
+    const a = await getAreaBar()
+    console.log(a)
+    setAreaBar(a)
+  }
+  
+  useEffect(() => {
+    if (!loading) {
+      setLoading(true)
+      request()
+    }
+
+  }, [loading])
+
   return (
     <ResponsiveContainer>
       <AreaChart
-        data={dataArea}
+        data={areaBar}
         margin={{
           top: 10,
           right: 30,
