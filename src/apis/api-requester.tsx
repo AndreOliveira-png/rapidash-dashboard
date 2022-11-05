@@ -43,6 +43,7 @@ export const ApiRequester = () => {
     }
     console.log(dt);
   };
+
   const getDataBar = async () => {
     try {
       const data = await axios.get("dataBar");
@@ -52,6 +53,7 @@ export const ApiRequester = () => {
       console.log(error);
     }
   };
+
   const getAreaBar = async () => {
     try {
       const data = await axios.get("dataArea");
@@ -61,6 +63,7 @@ export const ApiRequester = () => {
       console.log(error);
     }
   };
+
   const getTableData = async () => {
     try {
       const data: AxiosResponse = await axios.get("delivery/all");

@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Input, Text, Flex, Box } from '@chakra-ui/react';
-import { createColumnHelper } from '@tanstack/react-table';
-import { DataTable } from '../data-render/DataTable';
-import ModalCadastro from '../../modals-toasts/ModalCadastro';
-import { cores } from '../../../styles/colors';
-import { Search2Icon } from '@chakra-ui/icons';
-import { InputGroup, InputRightElement } from '@chakra-ui/react';
-import { ApiRequester } from '../../../apis/api-requester';
-import {Product} from '../../../types/types'
+import { useEffect, useState } from "react";
+import { Input, Text, Flex, Box } from "@chakra-ui/react";
+import { createColumnHelper } from "@tanstack/react-table";
+import { DataTable } from "../data-render/DataTable";
+import ModalCadastro from "../../modals-toasts/ModalCadastro";
+import { cores } from "../../../styles/colors";
+import { Search2Icon } from "@chakra-ui/icons";
+import { InputGroup, InputRightElement } from "@chakra-ui/react";
+import { ApiRequester } from "../../../apis/api-requester";
+import { Product } from "../../../types/types";
+import TableProducts from "./TableProducts";
+import ModalProdutos from "../../modals-toasts/ModalProdutos";
 
 type UnitConversion = {
   destiny: string;
@@ -79,31 +81,31 @@ export const filter = (text: string, data: any) => {
 const columnHelper = createColumnHelper<UnitConversion>();
 
 const columns = [
-  columnHelper.accessor('destiny', {
+  columnHelper.accessor("destiny", {
     cell: (info) => info.getValue(),
-    header: 'Destinatário',
+    header: "Destinatário",
   }),
-  columnHelper.accessor('entregue', {
+  columnHelper.accessor("entregue", {
     cell: (info) => info.getValue(),
-    header: 'Entregue',
+    header: "Entregue",
   }),
-  columnHelper.accessor('nomeEntregador', {
+  columnHelper.accessor("nomeEntregador", {
     cell: (info) => info.getValue(),
-    header: 'Nome Entregador',
+    header: "Nome Entregador",
   }),
-  columnHelper.accessor('produtos', {
+  columnHelper.accessor("produtos", {
     cell: (info) => info.getValue(),
-    header: 'Produtos',
+    header: "Produtos",
   }),
 ];
 
 function CustomTable() {
   const [data, setData] = useState([]);
   const [dt, setDt] = useState([]);
-  const [loading, setLoading] = useState(false)
-  const {getTableData} = ApiRequester();
+  const [loading, setLoading] = useState(false);
+  const { getTableData } = ApiRequester();
 
-  let text = '';
+  let text = "";
   const handleChange = (event: any) => {
     text = event.target.value;
     let aux = filter(text, data);
@@ -126,83 +128,87 @@ function CustomTable() {
   //   )
   //   .then((data) => console.log(data))
   //   .catch((error) => console.log(error));
-  const request = async() =>{
-    const d = await getTableData()
+
+  const request = async () => {
+    const d = await getTableData();
     setData(
       d.map((e: any) => {
         return {
           destiny: e.destiny,
-          produtos: e.produtos ? 'Sim' : 'Não',
+          produtos: [
+            { name: "Agua com gás", quantity: "5" },
+            { name: "Agua sem gás", quantity: "7" },
+          ],
           nomeEntregador: e.user?.fullName ? e.user?.fullName : "Nenhum",
-          entregue: e.delivered ? 'Sim' : 'Não',
+          entregue: e.delivered ? "Sim" : "Não",
         };
       })
-    )
-  }
-useEffect(() =>{
-  if(!loading){
-    setLoading(true)
-    request()
-  }
-},[loading])
-  
+    );
+  };
+  useEffect(() => {
+    if (!loading) {
+      setLoading(true);
+      request();
+    }
+  }, [loading]);
+
   return (
     <Flex
-      pb='5%'
-      pt='1%'
-      direction='column'
+      pb="5%"
+      pt="1%"
+      direction="column"
       bg={cores.backgroundPadrao}
       // bgGradient='linear(to-b,white 80%, #2F576D 20%)'
     >
-      <Flex direction='row'>
-        <Text ml='10%' as='b' color='#DADADA' fontSize='lg'>
-          Encomendas{' '}
+      <Flex direction="row">
+        <Text ml="10%" as="b" color="#DADADA" fontSize="lg">
+          Encomendas{" "}
         </Text>
-        <InputGroup w='41%'>
+        <InputGroup w="41%">
           <Input
-            bg='#2F576D'
-            color='white'
-            focusBorderColor='#3E86B0'
-            borderWidth='1'
-            borderColor='#2F576D'
-            ml='1%'
-            w='100%'
+            bg="#2F576D"
+            color="white"
+            focusBorderColor="#3E86B0"
+            borderWidth="1"
+            borderColor="#2F576D"
+            ml="1%"
+            w="100%"
             onChange={handleChange}
-            placeholder='Digite o ID, nome, condição da entrega ou atribuição'
-            _placeholder={{ color: 'white' }}
+            placeholder="Digite o ID, nome, condição da entrega ou atribuição"
+            _placeholder={{ color: "white" }}
           />
           <InputRightElement
             bg={cores.backgroundSecundario}
-            borderRadius='0px 5px 5px 0px'
-            pointerEvents='none'
-            children={<Search2Icon color='white' />}
+            borderRadius="0px 5px 5px 0px"
+            pointerEvents="none"
+            children={<Search2Icon color="white" />}
           />
         </InputGroup>
         <ModalCadastro />
       </Flex>
       <Box
-        className='boxTable'
-        minH='300px'
-        h='50vh'
-        maxH='300px'
-        pb='5px'
-        borderRadius='md'
-        borderWidth='1px'
-        borderColor='#2F576D'
-        mt='1%'
-        ml='10%'
-        w='80%'
+        className="boxTable"
+        minH="300px"
+        h="50vh"
+        maxH="300px"
+        pb="5px"
+        borderRadius="md"
+        borderWidth="1px"
+        borderColor="#2F576D"
+        mt="1%"
+        ml="10%"
+        w="80%"
         bg={cores.backgroundSecundario}
       >
         {dt.length === 0 ? (
           <Flex
-            w='100%'
-            h='100%'
-            direction='row'
-            justifyContent='center'
-            alignItems='center'
+            w="100%"
+            h="100%"
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
           >
-            <Text as='b' fontSize='lg' color='white'>
+            <Text as="b" fontSize="lg" color="white">
               Nenhuma Entrega corresponde ao que foi digitado.
             </Text>
           </Flex>
