@@ -48,7 +48,7 @@ function ModalProdutos<props>(props: any) {
         </Flex>
       ) : (
         <Button onClick={onOpen} ml="1%" colorScheme="brand">
-          *****
+          Clique Aqui
         </Button>
       )}
 

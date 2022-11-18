@@ -135,12 +135,9 @@ function CustomTable() {
       d.map((e: any) => {
         return {
           destiny: e.destiny,
-          produtos: [
-            { name: "Agua com gás", quantity: "5" },
-            { name: "Agua sem gás", quantity: "7" },
-          ],
+          produtos: e.producties,
           nomeEntregador: e.user?.fullName ? e.user?.fullName : "Nenhum",
-          entregue: e.delivered ? "Sim" : "Não",
+          entregue: e.receivedAt ? "Sim" : "Não",
         };
       })
     );
